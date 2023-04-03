@@ -17,6 +17,7 @@ namespace NorthwindEmployeeAPI.Data.Repository
                 .Where(e => e.EmployeeId == id)
                 .Include(e => e.Territories)
                 .Include(e => e.Orders)
+                .ThenInclude(e => e.OrderDetails)
                 .FirstOrDefaultAsync();
         }
         public override async Task<IEnumerable<Employee>> GetAllAsync()
@@ -24,6 +25,7 @@ namespace NorthwindEmployeeAPI.Data.Repository
             return await _dbSet
                 .Include(e => e.Territories)
                 .Include(e => e.Orders)
+                .ThenInclude(e => e.OrderDetails)
                 .ToListAsync();
         }
     }

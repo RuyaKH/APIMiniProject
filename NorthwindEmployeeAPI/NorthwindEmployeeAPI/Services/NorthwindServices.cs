@@ -74,7 +74,7 @@ namespace NorthwindAPI.Services
             return entity;
         }
 
-        public async Task<bool> UpdateAsync(int id, T entity)
+        public virtual async Task<bool> UpdateAsync(int id, T entity)
         {
             _repository.Update(entity);
 
@@ -84,7 +84,7 @@ namespace NorthwindAPI.Services
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (await GetAsync(id) == null)
+                if (!await EntityExists(id))
                 {
                     return false;
                 }
@@ -96,5 +96,12 @@ namespace NorthwindAPI.Services
 
             return true;
         }
+
+        private async Task<bool> EntityExists(int id)
+        {
+            return (await _repository.FindAsync(id)) != null;
+        }
+
+
     }
 }
