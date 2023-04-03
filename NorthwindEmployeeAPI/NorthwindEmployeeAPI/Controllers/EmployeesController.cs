@@ -6,29 +6,32 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NorthwindEmployeeAPI.Models;
+using NorthwindEmployeeAPI.Services;
 
 //
 namespace NorthwindEmployeeAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeesController : ControllerBase
+    public partial class EmployeesController : ControllerBase
     {
         private readonly NorthwindContext _context;
 
-        public EmployeesController(NorthwindContext context)
+        public EmployeesController(NorthwindContext context, INorthwindService<Employee> employeeService, INorthwindService<Territory> territoryService)
         {
             _context = context;
+            _employeeService = employeeService;
+            _territoryService = territoryService;
         }
 
         // GET: api/Employees
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
         {
-          if (_context.Employees == null)
-          {
-              return NotFound();
-          }
+            if (_context.Employees == null)
+            {
+                return NotFound();
+            }
             return await _context.Employees.ToListAsync();
         }
 
@@ -36,10 +39,10 @@ namespace NorthwindEmployeeAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(int id)
         {
-          if (_context.Employees == null)
-          {
-              return NotFound();
-          }
+            if (_context.Employees == null)
+            {
+                return NotFound();
+            }
             var employee = await _context.Employees.FindAsync(id);
 
             if (employee == null)
@@ -86,10 +89,10 @@ namespace NorthwindEmployeeAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
-          if (_context.Employees == null)
-          {
-              return Problem("Entity set 'NorthwindContext.Employees'  is null.");
-          }
+            if (_context.Employees == null)
+            {
+                return Problem("Entity set 'NorthwindContext.Employees'  is null.");
+            }
             _context.Employees.Add(employee);
             await _context.SaveChangesAsync();
 
@@ -97,7 +100,7 @@ namespace NorthwindEmployeeAPI.Controllers
         }
 
         // DELETE: api/Employees/5
-        [HttpDelete("{id}")]
+        /*[HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
             if (_context.Employees == null)
@@ -114,7 +117,7 @@ namespace NorthwindEmployeeAPI.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
+        }*/
 
         private bool EmployeeExists(int id)
         {

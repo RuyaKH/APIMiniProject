@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using NorthwindAPI.Services;
+using NorthwindEmployeeAPI.Data.Repositories;
+using NorthwindEmployeeAPI.Data.Repository;
 using NorthwindEmployeeAPI.Models;
+using NorthwindEmployeeAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +18,11 @@ builder.Services.AddControllers()
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped(typeof(INorthwindRepository<>), typeof(NorthwindRepository<>));
+builder.Services.AddScoped(typeof(INorthwindService<>), typeof(NorthwindService<>));
+builder.Services.AddScoped<INorthwindRepository<Employee>, EmployeeRepository>();
+builder.Services.AddScoped<INorthwindRepository<Territory>, TerritoryRepository>();
 
 var app = builder.Build();
 
