@@ -1,23 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using NorthwindEmployeeAPI.Models;
 using NorthwindEmployeeAPI.Models.DTO;
 using NorthwindEmployeeAPI.Services;
 
-//
+
 namespace NorthwindEmployeeAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public partial class EmployeesController : ControllerBase
+    public partial class EmployeesController : RestControllerBase
     {
-
+        //private readonly IReadOnlyList<ActionDescriptor> _routes;
+        //private readonly IMapper _mapper;
         private readonly INorthwindService<Employee> _employeeService;
         private readonly INorthwindService<Order> _orderService;
         private readonly INorthwindService<Territory> _territoryService;
         
-        public EmployeesController(INorthwindService<Employee> employeeService,
+        public EmployeesController(IActionDescriptorCollectionProvider actionDescriptorCollectionProvider,
+            INorthwindService<Employee> employeeService,
             INorthwindService<Order> orderService,
-            INorthwindService<Territory> territoryService)
+            INorthwindService<Territory> territoryService,
+            IMapper mapper) 
+            : base(actionDescriptorCollectionProvider, mapper)
         {
             _employeeService = employeeService;
             _orderService = orderService;
@@ -25,16 +32,21 @@ namespace NorthwindEmployeeAPI.Controllers
         }
 
         // GET: api/Employees
-        [HttpGet]
+        [HttpGet(Name = "GetEmployees")]
         public async Task<ActionResult<IEnumerable<EmployeeDTO>>> GetEmployeesAsync()
         {
-          if (await _employeeService.GetAllAsync() != null)
-          {
-                return (await _employeeService.GetAllAsync())!
-                    .Select(e => Utils.ToEmployeeDTO(e))
-                    .ToList();
-          }
-            return NotFound();
+            var employee = await _employeeService.GetAllAsync();
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            var employeeModel = employee
+                .Select(e => Utils.ToEmployeeDTO(e))
+                .ToList();
+
+            return Ok(employeeModel);
         }
 
 
@@ -74,7 +86,7 @@ namespace NorthwindEmployeeAPI.Controllers
         }
 
         // GET: api/Employees/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}",Name = "GetAnEmployee")]
         public async Task<ActionResult<EmployeeDTO>> GetEmployeeAsync(int id)
         {
           if (_employeeService == null)
@@ -88,7 +100,8 @@ namespace NorthwindEmployeeAPI.Controllers
                 return NotFound();
             }
 
-            return Utils.ToEmployeeDTO(employee);
+            var employeeModel = Utils.ToEmployeeDTO(employee);
+            return Ok(RestfulEmployee(employeeModel));
         }
 
         // PUT: api/Employees/5
