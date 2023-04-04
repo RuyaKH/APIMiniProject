@@ -6,12 +6,12 @@ using NorthwindEmployeeAPI.Services;
 
 namespace NorthwindAPI.Services
 {
-    public class NorthwindService<T> : INorthwindService<T> where T : class
+    public class NorthwindServices<T> : INorthwindService<T> where T : class
     {
         private readonly ILogger _logger;
         private readonly INorthwindRepository<T> _repository;
 
-        public NorthwindService(ILogger<INorthwindService<T>> logger, INorthwindRepository<T> repository)
+        public NorthwindServices(ILogger<INorthwindService<T>> logger, INorthwindRepository<T> repository)
         {
             _logger = logger;
             _repository = repository;
@@ -118,7 +118,6 @@ namespace NorthwindAPI.Services
         {
             return (await _repository.FindAsync(id)) != null;
         }
-
 
     }
 }

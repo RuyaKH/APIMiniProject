@@ -22,12 +22,18 @@ builder.Services.AddScoped<INorthwindRepository<Employee>, EmployeeRepository>()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddScoped(typeof(INorthwindService<Employee>), typeof(EmployeeService));
+builder.Services.AddScoped(typeof(IOrderService<Order>), typeof(OrderService));
+builder.Services.AddScoped<INorthwindRepository<Order>, OrderRepository>();
+
+
 builder.Services.AddScoped(typeof(INorthwindRepository<>), typeof(NorthwindRepository<>));
 builder.Services.AddScoped(typeof(INorthwindService<>), typeof(NorthwindService<>));
 
-builder.Services.AddScoped<INorthwindService<Employee>, EmployeeServices>();
 builder.Services.AddScoped<INorthwindRepository<Employee>, EmployeeRepository>();
 builder.Services.AddScoped<INorthwindRepository<Territory>, TerritoryRepository>();
+
 
 var app = builder.Build();
 
