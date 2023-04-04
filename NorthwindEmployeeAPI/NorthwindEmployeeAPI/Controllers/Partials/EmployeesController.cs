@@ -6,7 +6,34 @@ namespace NorthwindEmployeeAPI.Controllers;
 
 public partial class EmployeesController
 {
-    private readonly INorthwindService<Territory> _territoryService;
+    // DELETE: api/Employees/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteEmployee(int id)
+    {
+        var employee = _employeeService.GetAsync(id).Result;
+        if (employee == null)
+        {
+            return NotFound();
+        }
+
+        foreach (var territory in employee.Territories)
+        {
+            territory.Employees.Remove(employee);
+        }
+
+        foreach (var order in employee.Orders)
+        {
+            order.EmployeeId = null;
+        }
+
+        var deleted = await _employeeService.DeleteAsync(id);
+        if (!deleted)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
 
     // DELETE: api/Employees/5/Territories/10153
     [HttpDelete("{employeeId}/Territories/{territoryId}")]
@@ -35,35 +62,7 @@ public partial class EmployeesController
             employee.Territories.Add(territory);
             return NotFound();
         }
-
-        return NoContent();
-    }
-
-    // DELETE: api/Employees/5
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteEmployee(int id)
-    {
-        var employee = _employeeService.GetAsync(id).Result;
-        if (employee == null)
-        {
-            return NotFound();
-        }
-
-        foreach (var territory in employee.Territories)
-        {
-            territory.Employees.Remove(employee);
-        }
-
-        foreach (var order in employee.Orders)
-        {
-            order.EmployeeId = null;
-        }
-
-        var deleted = await _employeeService.DeleteAsync(id);
-        if (!deleted)
-        {
-            return NotFound();
-        }
+        await _employeeService.SaveAsync();
 
         return NoContent();
     }
