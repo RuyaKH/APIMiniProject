@@ -17,10 +17,10 @@ namespace NorthwindEmployeeAPI.Controllers
     [ApiController]
     public partial class EmployeesController : ControllerBase
     {
-
         private readonly INorthwindService<Employee> _employeeService;
         private readonly IOrderService<Order> _orderService;
         private readonly INorthwindService<Territory> _territoryService;
+        
         public EmployeesController(INorthwindService<Employee> employeeService,
             IOrderService<Order> orderService,
             INorthwindService<Territory> territoryService)
