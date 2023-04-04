@@ -23,7 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddScoped(typeof(INorthwindService<Employee>), typeof(EmployeeService));
+builder.Services.AddScoped(typeof(IEmployeeService<Employee>), typeof(EmployeeService));
 builder.Services.AddScoped(typeof(IOrderService<Order>), typeof(OrderService));
 builder.Services.AddScoped<INorthwindRepository<Order>, OrderRepository>();
 

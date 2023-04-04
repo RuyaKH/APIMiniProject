@@ -17,18 +17,12 @@ namespace NorthwindEmployeeAPI.Controllers
     [ApiController]
     public partial class EmployeesController : ControllerBase
     {
-
-        private readonly NorthwindContext _context;
-        private readonly INorthwindRepository<Employee> _employeeRepository;
-        private readonly INorthwindService<Employee> _employeeService;
+        private readonly IEmployeeService<Employee> _employeeService;
         private readonly IOrderService<Order> _orderService;
-        
-        public EmployeesController(NorthwindContext context, INorthwindRepository<Employee> employeeRepository,
-            INorthwindService<Employee> employeeService, IOrderService<Order> orderService)
+
+        public EmployeesController(IEmployeeService<Employee> employeeService, IOrderService<Order> orderService)
         {
-            _employeeRepository = employeeRepository;
             _employeeService = employeeService;
-            _context = context;
             _orderService = orderService;
         }
 
@@ -73,7 +67,13 @@ namespace NorthwindEmployeeAPI.Controllers
             }
             return NotFound();
         }
+        [HttpGet("testingFour")]
+        public async Task<ActionResult<List<object>>> TestingFour()
+        {
+            var result = _employeeService.EmployeeReportToAsync().Result;
 
+            return result;
+        }
         // GET: api/Employees/5
         [HttpGet("{id}")]
         public async Task<ActionResult<EmployeeDTO>> GetEmployee(int id)
