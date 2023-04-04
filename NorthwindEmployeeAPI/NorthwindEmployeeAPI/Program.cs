@@ -14,6 +14,9 @@ opt => opt.UseSqlServer(dbConnection));
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+builder.Services.AddScoped(typeof(INorthwindRepository<>), typeof(NorthwindRepository<>));
+builder.Services.AddScoped(typeof(INorthwindService<>), typeof(NorthwindService<>));
+builder.Services.AddScoped<INorthwindRepository<Employee>, EmployeeRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
