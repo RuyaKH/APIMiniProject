@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindEmployeeAPI", "Nor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindEmployeeAPITests", "NorthwindEmployeeAPITests\NorthwindEmployeeAPITests.csproj", "{CC2D6951-8B68-46CF-A983-97D9628FCFBB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindEmployeeReadTests", "NorthwindEmployeeReadTests\NorthwindEmployeeReadTests.csproj", "{5BFAE502-C33E-46C5-BF3D-FCD911F6626D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CC2D6951-8B68-46CF-A983-97D9628FCFBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC2D6951-8B68-46CF-A983-97D9628FCFBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC2D6951-8B68-46CF-A983-97D9628FCFBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BFAE502-C33E-46C5-BF3D-FCD911F6626D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BFAE502-C33E-46C5-BF3D-FCD911F6626D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BFAE502-C33E-46C5-BF3D-FCD911F6626D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BFAE502-C33E-46C5-BF3D-FCD911F6626D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
