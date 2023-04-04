@@ -17,6 +17,7 @@ namespace NorthwindEmployeeAPI.Controllers
     [ApiController]
     public partial class EmployeesController : ControllerBase
     {
+
         private readonly INorthwindService<Employee> _employeeService;
         private readonly IOrderService<Order> _orderService;
         private readonly INorthwindService<Territory> _territoryService;
@@ -32,38 +33,55 @@ namespace NorthwindEmployeeAPI.Controllers
 
         // GET: api/Employees
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmployeeDTO>>> GetEmployees()
+        public async Task<ActionResult<IEnumerable<EmployeeDTO>>> GetEmployeesAsync()
         {
           if (await _employeeService.GetAllAsync() != null)
           {
                 return (await _employeeService.GetAllAsync())!
                     .Select(e => Utils.ToEmployeeDTO(e))
-                    .OrderBy(e => e.Metric2)
                     .ToList();
           }
             return NotFound();
         }
 
 
-        [HttpGet("testing")]
-        public async Task<ActionResult<string>> Testing()
+        [HttpGet("MostItems")]
+        public async Task<ActionResult<string>> GetsHighestNumberOfProductsAsync()
         {
             var result = _orderService.HighestQuantityOfOrderAsync().Result;
+            if (result == null) return NotFound();
             return result;
         }
 
-        [HttpGet("testingtwo")]
-        public async Task<ActionResult<List<object>>> TestingTwo()
+        [HttpGet("MonthlySales")]
+        public async Task<ActionResult<List<object>>> GetMonthlySalesAsync()
         {
             var result = _orderService.SalesByMonthAsync().Result;
-
-            
+            if (result.Count == 0) return NotFound();
             return result;
         }
-
+        [HttpGet("MostProfitable")]
+        public async Task<ActionResult<EmployeeDTO>> GetsMostMoneyMakingEmployeeAsync()
+        {
+            if (await _employeeService.GetAllAsync() != null)
+            {
+                return (await _employeeService.GetAllAsync())!
+                    .Select(e => Utils.ToEmployeeDTO(e))
+                    .OrderByDescending(e => e.TotalMoneyMade)
+                    .First();
+            }
+            return NotFound();
+        }
+        [HttpGet("ReportsTo")]
+        public async Task<ActionResult<List<object>>> GetsReportsToAsync()
+        {
+            var result =await _employeeService.EmployeeReportToAsync();
+            if (result.Count == 0) return NotFound();
+            return result;
+        }
         // GET: api/Employees/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<EmployeeDTO>> GetEmployee(int id)
+        public async Task<ActionResult<EmployeeDTO>> GetEmployeeAsync(int id)
         {
           if (_employeeService == null)
           {
