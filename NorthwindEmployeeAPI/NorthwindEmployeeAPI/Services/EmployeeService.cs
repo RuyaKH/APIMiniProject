@@ -7,14 +7,14 @@ using NorthwindEmployeeAPI.Models.DTO;
 
 namespace NorthwindEmployeeAPI.Services
 {
-    public class EmployeeService : NorthwindServices<Employee>, IEmployeeService<Employee>
+    public class EmployeeService : NorthwindServices<Employee>
     {
         private readonly INorthwindRepository<Employee> _employeeRepository;
         public EmployeeService(ILogger<INorthwindService<Employee>> logger, INorthwindRepository<Employee> repository) : base(logger, repository)
         {
             _employeeRepository = repository;
         }
-        public async Task<List<object>> EmployeeReportToAsync()
+        public override async Task<List<object>> GetColumnToAsync()
         {
             var result = _employeeRepository.returnContext().Employees
             .Join(_employeeRepository.returnContext().Employees, e1 => e1.EmployeeId, e2 => e2.ReportsTo, (e1, e2) => new
