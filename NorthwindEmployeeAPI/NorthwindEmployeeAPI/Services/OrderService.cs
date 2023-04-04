@@ -6,7 +6,7 @@ using NorthwindEmployeeAPI.Models;
 
 namespace NorthwindEmployeeAPI.Services
 {
-    public class OrderService : NorthwindServices<Order>, IOrderService<Order>
+    public class OrderService : NorthwindServices<Order>, INorthwindService<Order>
     {
         private INorthwindRepository<Order> _repository;
 
@@ -14,7 +14,7 @@ namespace NorthwindEmployeeAPI.Services
         {
             _repository = repository;
         }
-        public async Task<string?> HighestQuantityOfOrderAsync()
+        public override async Task<string?> HighestQuantityOfColumnAsync()
         {
             var result = await _repository.returnContext().OrderDetails
                  .GroupBy(od => od.Order.EmployeeId)
@@ -29,7 +29,7 @@ namespace NorthwindEmployeeAPI.Services
             return result?.ToString();
         }
 
-        public async Task<List<object>> SalesByMonthAsync()
+        public async Task<List<object>> GetMetricAsync()
         {
             var result = _repository.returnContext().OrderDetails
                 .GroupBy(od => new { Year = od.Order.OrderDate.Value.Year, Month = od.Order.OrderDate.Value.Month })

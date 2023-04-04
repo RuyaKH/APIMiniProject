@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NorthwindEmployeeAPI.Data.Repositories;
+﻿using Microsoft.AspNetCore.Mvc;
 using NorthwindEmployeeAPI.Models;
 using NorthwindEmployeeAPI.Models.DTO;
 using NorthwindEmployeeAPI.Services;
@@ -19,11 +12,11 @@ namespace NorthwindEmployeeAPI.Controllers
     {
 
         private readonly INorthwindService<Employee> _employeeService;
-        private readonly IOrderService<Order> _orderService;
+        private readonly INorthwindService<Order> _orderService;
         private readonly INorthwindService<Territory> _territoryService;
         
         public EmployeesController(INorthwindService<Employee> employeeService,
-            IOrderService<Order> orderService,
+            INorthwindService<Order> orderService,
             INorthwindService<Territory> territoryService)
         {
             _employeeService = employeeService;
@@ -48,7 +41,7 @@ namespace NorthwindEmployeeAPI.Controllers
         [HttpGet("MostItems")]
         public async Task<ActionResult<string>> GetsHighestNumberOfProductsAsync()
         {
-            var result = _orderService.HighestQuantityOfOrderAsync().Result;
+            var result = _orderService.HighestQuantityOfColumnAsync().Result;
             if (result == null) return NotFound();
             return result;
         }
@@ -56,7 +49,7 @@ namespace NorthwindEmployeeAPI.Controllers
         [HttpGet("MonthlySales")]
         public async Task<ActionResult<List<object>>> GetMonthlySalesAsync()
         {
-            var result = _orderService.SalesByMonthAsync().Result;
+            var result = _orderService.GetMetricAsync().Result;
             if (result.Count == 0) return NotFound();
             return result;
         }

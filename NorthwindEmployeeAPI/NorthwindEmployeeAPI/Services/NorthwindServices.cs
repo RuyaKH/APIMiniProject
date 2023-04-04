@@ -128,5 +128,15 @@ namespace NorthwindAPI.Services
         {
             return null; 
         }
+
+        public virtual Task<string?> HighestQuantityOfColumnAsync()
+        {
+            return null;
+        }
+
+        public virtual Task<List<object>> GetMetricAsync()
+        {
+            return null;
+        }
     }
 }

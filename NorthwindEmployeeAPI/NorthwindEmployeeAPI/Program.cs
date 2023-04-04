@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddScoped(typeof(INorthwindService<Employee>), typeof(EmployeeService));
-builder.Services.AddScoped(typeof(IOrderService<Order>), typeof(OrderService));
+builder.Services.AddScoped(typeof(INorthwindService<Order>), typeof(OrderService));
 builder.Services.AddScoped<INorthwindRepository<Order>, OrderRepository>();
 
 

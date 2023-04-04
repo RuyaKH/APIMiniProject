@@ -10,5 +10,8 @@
         Task<T?> GetAsync(string id);
         Task SaveAsync();
         Task<List<object>> GetColumnToAsync();
+        Task<string?> HighestQuantityOfColumnAsync();
+        Task<List<object>> GetMetricAsync();
+
     }
 }
