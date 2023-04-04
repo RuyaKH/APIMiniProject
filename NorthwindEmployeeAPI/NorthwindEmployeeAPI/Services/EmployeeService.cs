@@ -7,12 +7,22 @@ using NorthwindEmployeeAPI.Models.DTO;
 
 namespace NorthwindEmployeeAPI.Services
 {
-    public class EmployeeService : NorthwindServices<Employee>
+    public class EmployeeService : NorthwindServices<Employee>, IEmployeeService<Employee>
     {
         private readonly INorthwindRepository<Employee> _employeeRepository;
         public EmployeeService(ILogger<INorthwindService<Employee>> logger, INorthwindRepository<Employee> repository) : base(logger, repository)
         {
             _employeeRepository = repository;
+        }
+        public async Task<List<object>> EmployeeReportToAsync()
+        {
+            var result = _employeeRepository.returnContext().Employees
+            .Join(_employeeRepository.returnContext().Employees, e1 => e1.EmployeeId, e2 => e2.ReportsTo, (e1, e2) => new
+            {
+                employee = e2.FirstName + " " + e2.LastName,
+                reportsto = e1.FirstName + " " + e1.LastName,
+            });
+            return result.Cast<object>().ToList();
         }
 
         public override async Task<bool> UpdateAsync(int id, Employee entity)

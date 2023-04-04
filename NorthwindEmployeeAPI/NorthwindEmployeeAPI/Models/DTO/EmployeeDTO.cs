@@ -10,7 +10,8 @@
 
         public string? Title { get; set; }
         public int NumberOfOrders { get; set; }
-        public int Metric2 { get; set; }
+        public decimal TotalMoneyMade { get; set; }
+        public decimal AverageSale { get; set; }
 
     }
 }
