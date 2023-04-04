@@ -123,7 +123,7 @@ public class EmployeeDeleteTests
         Assert.That(result, Is.TypeOf<NotFoundResult>());
     }
 
-    [Category("Happy Path")]
+    [Category("Sad Path")]
     [Category("DeleteEmployeeTerritory")]
     [Test]
     public async Task DeleteEmployeeTerritory_GivenCannotRemoveFromLists_ReturnsNoContent()
