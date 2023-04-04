@@ -11,7 +11,7 @@ namespace NorthwindEmployeeAPI.Controllers
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
             bool inserted = await _employeeService.CreateAsync(employee);
-            if (!inserted) return Problem($"Error creating Employee resource {employee}");
+            if (!inserted) return BadRequest();
             return CreatedAtAction("GetEmployee", new { id = employee.EmployeeId }, employee);
         }
     }

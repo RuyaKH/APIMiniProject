@@ -23,12 +23,9 @@ namespace NorthwindEmployeeAPI.Controllers
         private readonly INorthwindService<Employee> _employeeService;
         private readonly IOrderService<Order> _orderService;
         
-        public EmployeesController(NorthwindContext context, INorthwindRepository<Employee> employeeRepository,
-            INorthwindService<Employee> employeeService, IOrderService<Order> orderService)
+        public EmployeesController(INorthwindService<Employee> employeeService, IOrderService<Order> orderService)
         {
-            _employeeRepository = employeeRepository;
             _employeeService = employeeService;
-            _context = context;
             _orderService = orderService;
         }
 
