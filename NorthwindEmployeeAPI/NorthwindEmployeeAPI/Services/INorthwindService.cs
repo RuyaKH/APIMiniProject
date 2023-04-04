@@ -9,5 +9,6 @@
         Task<T?> GetAsync(int id);
         Task<T?> GetAsync(string id);
         Task SaveAsync();
+        Task<List<object>> GetColumnToAsync();
     }
 }

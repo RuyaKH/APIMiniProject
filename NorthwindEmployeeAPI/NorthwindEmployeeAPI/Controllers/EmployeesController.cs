@@ -75,10 +75,11 @@ namespace NorthwindEmployeeAPI.Controllers
         [HttpGet("ReportsTo")]
         public async Task<ActionResult<List<object>>> GetsReportsToAsync()
         {
-            var result =await _employeeService.EmployeeReportToAsync();
+            var result =await _employeeService.GetColumnToAsync();
             if (result.Count == 0) return NotFound();
             return result;
         }
+
         // GET: api/Employees/5
         [HttpGet("{id}")]
         public async Task<ActionResult<EmployeeDTO>> GetEmployeeAsync(int id)

@@ -13,10 +13,11 @@ namespace NorthwindEmployeeAPITests
         {
             var mockService = Mock.Of<INorthwindService<Employee>>();
             var mockOrders = Mock.Of<IOrderService<Order>>();
+            var mockTerritory = Mock.Of<INorthwindService<Territory>>();
             Mock.Get(mockService)
                 .Setup(es => es.CreateAsync(It.IsAny<Employee>()).Result)
                 .Returns(true);
-            var _sut = new EmployeesController(mockService, mockOrders);
+            var _sut = new EmployeesController(mockService, mockOrders, mockTerritory);
             var result = await _sut.PostEmployee(new Employee());
             Assert.That(result.Result, Is.InstanceOf<CreatedAtActionResult>());
         }
@@ -25,13 +26,14 @@ namespace NorthwindEmployeeAPITests
         {
             var mockService = Mock.Of<INorthwindService<Employee>>();
             var mockOrders = Mock.Of<IOrderService<Order>>();
+            var mockTerritory = Mock.Of<INorthwindService<Territory>>();
             Mock.Get(mockService)
                 .Setup(es => es.CreateAsync(It.IsAny<Employee>()).Result)
                 .Returns(false);
-            var _sut = new EmployeesController(mockService, mockOrders);
+            var _sut = new EmployeesController(mockService, mockOrders, mockTerritory);
             var result = await _sut.PostEmployee(Mock.Of<Employee>());
             Assert.That(result, Is.TypeOf<ActionResult<Employee>>());
-            Assert.That(result.Result, Is.TypeOf<BadRequestObjectResult>());
+            Assert.That(result.Result, Is.TypeOf<BadRequestResult>());
         }
     }
 }

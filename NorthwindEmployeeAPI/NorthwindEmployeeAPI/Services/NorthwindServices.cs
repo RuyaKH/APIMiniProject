@@ -123,5 +123,10 @@ namespace NorthwindAPI.Services
         {
             await _repository.SaveAsync();
         }
+
+        public virtual async Task<List<object>> GetColumnToAsync()
+        {
+            return null; 
+        }
     }
 }
