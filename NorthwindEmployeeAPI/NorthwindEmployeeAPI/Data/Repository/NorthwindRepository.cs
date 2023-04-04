@@ -52,7 +52,7 @@ namespace NorthwindEmployeeAPI.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             _dbSet.Update(entity);
         }

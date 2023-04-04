@@ -16,7 +16,7 @@ namespace NorthwindEmployeeAPI.Controllers
     public partial class EmployeesController : ControllerBase
     {
         private readonly INorthwindService<Employee> _employeeService;
-
+        
         public EmployeesController(NorthwindContext context, INorthwindService<Employee> employeeService, INorthwindService<Territory> territoryService)
         {
             _context = context;
@@ -24,29 +24,37 @@ namespace NorthwindEmployeeAPI.Controllers
             _territoryService = territoryService;
         }
 
-        // DELETE: api/Employees/5
-        /*[HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEmployee(int id)
+        // PUT: api/Employees/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}/territory")]
+        public async Task<IActionResult> PutEmployeeTerritoryRegion(int id,
+            [Bind("EmployeeId", "TerritoryId", "TerritoryDescription")] Employee employee)
         {
-            if (_context.Employees == null)
+            
+            if (id != employee.EmployeeId)
             {
-                return NotFound();
-            }
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
-            {
-                return NotFound();
+                return BadRequest();
             }
 
-            _context.Employees.Remove(employee);
-            await _context.SaveChangesAsync();
+            var updatedSuccess = await _employeeService.UpdateAsync(id, employee);
+            if (!updatedSuccess) return NotFound();
 
             return NoContent();
-        }*/
+        }
 
-        private bool EmployeeExists(int id)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutEmployeeDetails(int id, 
+            [Bind("EmployeeId", "FirstName", "LastName", "Title", "Address", "City", "PostalCode", "Country")] Employee employee)
         {
-            return (_context.Employees?.Any(e => e.EmployeeId == id)).GetValueOrDefault();
+            if (id != employee.EmployeeId)
+            {
+                return BadRequest();
+            }
+
+            var updatedSuccess = await _employeeService.UpdateAsync(id, employee);
+            if (!updatedSuccess) return NotFound();
+
+            return NoContent();
         }
     }
 }
