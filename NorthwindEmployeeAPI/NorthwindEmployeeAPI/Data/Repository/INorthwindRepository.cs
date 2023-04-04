@@ -1,4 +1,6 @@
-﻿namespace NorthwindEmployeeAPI.Data.Repositories
+﻿using NorthwindEmployeeAPI.Models;
+
+namespace NorthwindEmployeeAPI.Data.Repositories
 {
     public interface INorthwindRepository<T>
     {
@@ -10,5 +12,7 @@
         void Update(T entity);
         void Remove(T entity);
         Task SaveAsync();
+
+        NorthwindContext returnContext();
     }
 }

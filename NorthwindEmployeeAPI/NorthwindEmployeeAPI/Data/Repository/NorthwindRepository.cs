@@ -6,7 +6,7 @@ namespace NorthwindEmployeeAPI.Data.Repositories
 {
     public class NorthwindRepository<T> : INorthwindRepository<T> where T : class
     {
-        private readonly NorthwindContext _context;
+        protected readonly NorthwindContext _context;
         protected readonly DbSet<T> _dbSet;
 
         public NorthwindRepository(NorthwindContext context)
@@ -50,6 +50,11 @@ namespace NorthwindEmployeeAPI.Data.Repositories
         public void Update(T entity)
         {
             _dbSet.Update(entity);
+        }
+
+        public NorthwindContext returnContext()
+        {
+            return _context;
         }
     }
 }

@@ -7,5 +7,6 @@
         Task<bool> DeleteAsync(int id);
         Task<IEnumerable<T>?> GetAllAsync();
         Task<T?> GetAsync(int id);
+
     }
 }
