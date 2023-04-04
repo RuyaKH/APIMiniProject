@@ -22,7 +22,7 @@ namespace NorthwindEmployeeAPI.Controllers
         private readonly INorthwindRepository<Employee> _employeeRepository;
         private readonly INorthwindService<Employee> _employeeService;
         private readonly IOrderService<Order> _orderService;
-        
+
         public EmployeesController(NorthwindContext context, INorthwindRepository<Employee> employeeRepository,
             INorthwindService<Employee> employeeService, IOrderService<Order> orderService)
         {
@@ -84,13 +84,19 @@ namespace NorthwindEmployeeAPI.Controllers
         // PUT: api/Employees/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}/territory")]
-        public async Task<IActionResult> PutEmployeeTerritoryRegion(int id,
-            [Bind("EmployeeId", "TerritoryId", "TerritoryDescription")] Employee employee)
+        public async Task<IActionResult> PutEmployeeTerritoryRegion(int id, List<string> territoryIds)
+            //[Bind("EmployeeId", "TerritoryId", "TerritoryDescription")] Employee employee)
         {
-            
+            var employee = _employeeService.GetAsync(id).Result;
             if (id != employee.EmployeeId)
             {
                 return BadRequest();
+            }
+
+            employee.Territories.Clear();
+            foreach(string territoryId in territoryIds)
+            {
+                employee.Territories.Add(_territoryService.GetAsync(territoryId).Result);
             }
 
             var updatedSuccess = await _employeeService.UpdateAsync(id, employee);
