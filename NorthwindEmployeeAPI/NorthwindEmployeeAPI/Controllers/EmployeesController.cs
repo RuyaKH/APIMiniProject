@@ -17,9 +17,36 @@ namespace NorthwindEmployeeAPI.Controllers
     {
         private readonly INorthwindService<Employee> _employeeService;
 
-        public EmployeesController(INorthwindService<Employee> employeeService)
+        public EmployeesController(NorthwindContext context, INorthwindService<Employee> employeeService, INorthwindService<Territory> territoryService)
         {
+            _context = context;
             _employeeService = employeeService;
+            _territoryService = territoryService;
+        }
+
+        // DELETE: api/Employees/5
+        /*[HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEmployee(int id)
+        {
+            if (_context.Employees == null)
+            {
+                return NotFound();
+            }
+            var employee = await _context.Employees.FindAsync(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }*/
+
+        private bool EmployeeExists(int id)
+        {
+            return (_context.Employees?.Any(e => e.EmployeeId == id)).GetValueOrDefault();
         }
     }
 }

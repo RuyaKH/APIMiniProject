@@ -22,6 +22,11 @@ builder.Services.AddScoped<INorthwindRepository<Employee>, EmployeeRepository>()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped(typeof(INorthwindRepository<>), typeof(NorthwindRepository<>));
+builder.Services.AddScoped(typeof(INorthwindService<>), typeof(NorthwindService<>));
+builder.Services.AddScoped<INorthwindRepository<Employee>, EmployeeRepository>();
+builder.Services.AddScoped<INorthwindRepository<Territory>, TerritoryRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
