@@ -25,6 +25,7 @@ namespace NorthwindEmployeeAPI.Data.Repository
             return await _dbSet
                 .Include(e => e.Territories)
                 .Include(e => e.Orders)
+                .ThenInclude(e => e.OrderDetails)
                 .ToListAsync();
         }
     }

@@ -7,6 +7,7 @@ namespace NorthwindEmployeeAPI.Data.Repositories
         bool IsNull { get; }
         Task<IEnumerable<T>> GetAllAsync();
         Task<T?> FindAsync(int id);
+        Task<T?> FindAsync(string id);
         void Add(T entity);
         void AddRange(IEnumerable<T> entities);
         void Update(T entity);
