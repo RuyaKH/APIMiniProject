@@ -22,14 +22,15 @@ namespace NorthwindEmployeeAPI.Controllers
         private readonly INorthwindRepository<Employee> _employeeRepository;
         private readonly INorthwindService<Employee> _employeeService;
         private readonly IOrderService<Order> _orderService;
-
+        private readonly INorthwindService<Territory> _territoryService;
         public EmployeesController(NorthwindContext context, INorthwindRepository<Employee> employeeRepository,
-            INorthwindService<Employee> employeeService, IOrderService<Order> orderService)
+            INorthwindService<Employee> employeeService, IOrderService<Order> orderService, INorthwindService<Territory> territoryService)
         {
             _employeeRepository = employeeRepository;
             _employeeService = employeeService;
             _context = context;
             _orderService = orderService;
+            _territoryService = territoryService;
         }
 
         // GET: api/Employees
@@ -92,7 +93,6 @@ namespace NorthwindEmployeeAPI.Controllers
             {
                 return BadRequest();
             }
-
             employee.Territories.Clear();
             foreach(string territoryId in territoryIds)
             {

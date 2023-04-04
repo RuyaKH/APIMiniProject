@@ -6,7 +6,7 @@ namespace NorthwindEmployeeAPI.Controllers;
 
 public partial class EmployeesController
 {
-    private readonly INorthwindService<Territory> _territoryService;
+    
 
     // DELETE: api/Employees/5/Territories/10153
     [HttpDelete("{employeeId}/Territories/{territoryId}")]
