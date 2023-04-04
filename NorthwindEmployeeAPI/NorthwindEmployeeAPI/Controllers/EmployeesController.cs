@@ -61,6 +61,18 @@ namespace NorthwindEmployeeAPI.Controllers
             
             return result;
         }
+        [HttpGet("TestingThree")]
+        public async Task<ActionResult<EmployeeDTO>> GethighestEmployees()
+        {
+            if (await _employeeService.GetAllAsync() != null)
+            {
+                return (await _employeeService.GetAllAsync())!
+                    .Select(e => Utils.ToEmployeeDTO(e))
+                    .OrderByDescending(e => e.TotalMoneyMade)
+                    .First();
+            }
+            return NotFound();
+        }
 
         // GET: api/Employees/5
         [HttpGet("{id}")]
