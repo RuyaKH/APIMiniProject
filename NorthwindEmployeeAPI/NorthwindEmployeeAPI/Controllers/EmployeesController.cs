@@ -28,7 +28,7 @@ namespace NorthwindEmployeeAPI.Controllers
 
         // GET: api/Employees
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmployeeDTO>>> GetEmployees()
+        public async Task<ActionResult<IEnumerable<EmployeeDTO>>> GetEmployeesAsync()
         {
           if (await _employeeService.GetAllAsync() != null)
           {
@@ -40,23 +40,23 @@ namespace NorthwindEmployeeAPI.Controllers
         }
 
 
-        [HttpGet("testing")]
-        public async Task<ActionResult<string>> Testing()
+        [HttpGet("MostItems")]
+        public async Task<ActionResult<string>> GetsHighestNumberOfProductsAsync()
         {
             var result = _orderService.HighestQuantityOfOrderAsync().Result;
+            if (result == null) return NotFound();
             return result;
         }
 
-        [HttpGet("testingtwo")]
-        public async Task<ActionResult<List<object>>> TestingTwo()
+        [HttpGet("MonthlySales")]
+        public async Task<ActionResult<List<object>>> GetMonthlySalesAsync()
         {
             var result = _orderService.SalesByMonthAsync().Result;
-
-            
+            if (result.Count == 0) return NotFound();
             return result;
         }
-        [HttpGet("TestingThree")]
-        public async Task<ActionResult<EmployeeDTO>> GethighestEmployees()
+        [HttpGet("MostProfitable")]
+        public async Task<ActionResult<EmployeeDTO>> GetsMostMoneyMakingEmployeeAsync()
         {
             if (await _employeeService.GetAllAsync() != null)
             {
@@ -67,16 +67,16 @@ namespace NorthwindEmployeeAPI.Controllers
             }
             return NotFound();
         }
-        [HttpGet("testingFour")]
-        public async Task<ActionResult<List<object>>> TestingFour()
+        [HttpGet("ReportsTo")]
+        public async Task<ActionResult<List<object>>> GetsReportsToAsync()
         {
-            var result = _employeeService.EmployeeReportToAsync().Result;
-
+            var result =await _employeeService.EmployeeReportToAsync();
+            if (result.Count == 0) return NotFound();
             return result;
         }
         // GET: api/Employees/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<EmployeeDTO>> GetEmployee(int id)
+        public async Task<ActionResult<EmployeeDTO>> GetEmployeeAsync(int id)
         {
           if (_employeeService == null)
           {
