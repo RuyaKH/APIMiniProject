@@ -12,7 +12,7 @@ namespace NorthwindEmployeeAPITests
         public async Task GivenAValidEmployee_PostEmployee_InsertsEmployee()
         {
             var mockService = Mock.Of<INorthwindService<Employee>>();
-            var mockOrders = Mock.Of<IOrderService<Order>>();
+            var mockOrders = Mock.Of<INorthwindService<Order>>();
             var mockTerritory = Mock.Of<INorthwindService<Territory>>();
             Mock.Get(mockService)
                 .Setup(es => es.CreateAsync(It.IsAny<Employee>()).Result)
@@ -25,7 +25,7 @@ namespace NorthwindEmployeeAPITests
         public async Task GivenInvalidEmlpoyee_PostEmployee_ReturnsProblem()
         {
             var mockService = Mock.Of<INorthwindService<Employee>>();
-            var mockOrders = Mock.Of<IOrderService<Order>>();
+            var mockOrders = Mock.Of<INorthwindService<Order>>();
             var mockTerritory = Mock.Of<INorthwindService<Territory>>();
             Mock.Get(mockService)
                 .Setup(es => es.CreateAsync(It.IsAny<Employee>()).Result)
