@@ -32,6 +32,11 @@ namespace NorthwindEmployeeAPI.Data.Repositories
             return await _dbSet.FindAsync(id);
         }
 
+        public virtual async Task<T?> FindAsync(string id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+
         public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();

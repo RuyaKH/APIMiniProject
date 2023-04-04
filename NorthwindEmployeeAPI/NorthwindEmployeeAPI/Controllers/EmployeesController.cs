@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using NorthwindEmployeeAPI.Models;
 using NorthwindEmployeeAPI.Services;
 
+//
 namespace NorthwindEmployeeAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -15,12 +16,13 @@ namespace NorthwindEmployeeAPI.Controllers
     public partial class EmployeesController : ControllerBase
     {
         private readonly INorthwindService<Employee> _employeeService;
-
-        public EmployeesController(INorthwindService<Employee> employeeService)
+        
+        public EmployeesController(NorthwindContext context, INorthwindService<Employee> employeeService, INorthwindService<Territory> territoryService)
         {
+            _context = context;
             _employeeService = employeeService;
+            _territoryService = territoryService;
         }
-
 
         // PUT: api/Employees/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -54,6 +56,5 @@ namespace NorthwindEmployeeAPI.Controllers
 
             return NoContent();
         }
-
     }
 }

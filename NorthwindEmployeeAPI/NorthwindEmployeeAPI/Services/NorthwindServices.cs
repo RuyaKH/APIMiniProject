@@ -74,6 +74,23 @@ namespace NorthwindAPI.Services
             return entity;
         }
 
+        public async Task<T?> GetAsync(string id)
+        {
+            if (_repository.IsNull)
+            {
+                return null;
+            }
+            var entity = await _repository.FindAsync(id);
+
+            if (entity == null)
+            {
+                _logger.LogWarning($"{typeof(T).Name} with id: {id} not found");
+                return null;
+            }
+            _logger.LogInformation($"{typeof(T).Name} with id: {id}  found");
+            return entity;
+        }
+
         public virtual async Task<bool> UpdateAsync(int id, T entity)
         {
             _repository.Update(entity);
