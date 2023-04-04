@@ -40,7 +40,6 @@ namespace NorthwindEmployeeAPI.Controllers
           {
                 return (await _employeeService.GetAllAsync())!
                     .Select(e => Utils.ToEmployeeDTO(e))
-                    .OrderBy(e => e.Metric2)
                     .ToList();
           }
             return NotFound();
