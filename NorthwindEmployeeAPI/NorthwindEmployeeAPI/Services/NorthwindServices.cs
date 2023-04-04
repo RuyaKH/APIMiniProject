@@ -119,5 +119,9 @@ namespace NorthwindAPI.Services
             return (await _repository.FindAsync(id)) != null;
         }
 
+        public async Task SaveAsync()
+        {
+            await _repository.SaveAsync();
+        }
     }
 }

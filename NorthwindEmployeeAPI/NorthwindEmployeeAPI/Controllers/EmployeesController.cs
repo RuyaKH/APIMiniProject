@@ -17,16 +17,17 @@ namespace NorthwindEmployeeAPI.Controllers
     [ApiController]
     public partial class EmployeesController : ControllerBase
     {
-
-        private readonly NorthwindContext _context;
-        private readonly INorthwindRepository<Employee> _employeeRepository;
         private readonly INorthwindService<Employee> _employeeService;
         private readonly IOrderService<Order> _orderService;
+        private readonly INorthwindService<Territory> _territoryService;
         
-        public EmployeesController(INorthwindService<Employee> employeeService, IOrderService<Order> orderService)
+        public EmployeesController(INorthwindService<Employee> employeeService,
+            IOrderService<Order> orderService,
+            INorthwindService<Territory> territoryService)
         {
             _employeeService = employeeService;
             _orderService = orderService;
+            _territoryService = territoryService;
         }
 
         // GET: api/Employees
@@ -81,13 +82,19 @@ namespace NorthwindEmployeeAPI.Controllers
         // PUT: api/Employees/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}/territory")]
-        public async Task<IActionResult> PutEmployeeTerritoryRegion(int id,
-            [Bind("EmployeeId", "TerritoryId", "TerritoryDescription")] Employee employee)
+        public async Task<IActionResult> PutEmployeeTerritory(int id, List<string> territoryIds)
+        //[Bind("EmployeeId", "TerritoryId", "TerritoryDescription")] Employee employee)
         {
-            
-            if (id != employee.EmployeeId)
+            var employee = _employeeService.GetAsync(id).Result;
+
+            employee.Territories.Clear();
+            foreach (string territoryId in territoryIds)
             {
-                return BadRequest();
+                var territory = _territoryService.GetAsync(territoryId).Result;
+                if (territory != null)
+                    employee.Territories.Add(territory);
+                else
+                    return NotFound("Territory with id " + territoryId + " does not exsist");
             }
 
             var updatedSuccess = await _employeeService.UpdateAsync(id, employee);
