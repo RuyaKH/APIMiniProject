@@ -13,33 +13,28 @@ using System.Threading.Tasks;
 
 namespace NorthwindEmployeeReadTests;
 
-    public class EmployeeControllerTest
+public class EmployeeControllerTest
+{
+    [Test]
+    public async Task GetEmployees()
     {
-        [Test]
-        public async Task GetEmployees()
-        {
-            var mockService = new Mock<INorthwindService<Employee>>();
-            var mockService2 = new Mock<INorthwindService<Order>>();
-            var mockService3 = new Mock<INorthwindService<Territory>>();
-            //new Employee
-            //{
-            //    EmployeeId = 1,
-            //    FirstName = "Alex",
-            //    LastName = "ALEX",
-            //    Title = "Master",
-            //};
-            List<Employee> employees = new List<Employee> {new Employee{
-            EmployeeId = 1,
-            FirstName = "Alex",
-            LastName = "ALEX",
-            Title = "Master",
-        }};
-            mockService
-                .Setup(sc => sc.GetAllAsync().Result)
-                .Returns(employees);
-            var sut = new EmployeesController(mockService.Object, mockService2.Object, mockService3.Object);
-            var result = await sut.GetEmployees();
-            Assert.That(result.Value, Is.InstanceOf<List<EmployeeDTO>>());
-        }
+        var mockService = new Mock<INorthwindService<Employee>>();
+        var mockService2 = new Mock<INorthwindService<Order>>();
+        var mockService3 = new Mock<INorthwindService<Territory>>();
+
+        List<Employee> employees = new List<Employee> {new Employee
+            {
+                EmployeeId = 1,
+                FirstName = "Alex",
+                LastName = "ALEX",
+                Title = "Master",
+            }
+        };
+        mockService
+            .Setup(sc => sc.GetAllAsync().Result)
+            .Returns(employees);
+        var sut = new EmployeesController(mockService.Object, mockService2.Object, mockService3.Object);
+        var result = await sut.GetEmployeesAsync();
+        Assert.That(result.Value, Is.InstanceOf<EmployeeDTO>());
     }
 }
