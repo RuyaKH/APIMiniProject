@@ -105,7 +105,8 @@ namespace NorthwindEmployeeAPI.Controllers
         // POST: api/Employees
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
+        public async Task<ActionResult<Employee>> PostEmployee(
+            [Bind("FirstName", "LastName", "Title", "TitleOfCourtesy", "BirthDate", "HireDate", "Address", "City", "PostalCode", "Country", "ReportsTo", "HomePhone")] Employee employee)
         {
             bool inserted = await _employeeService.CreateAsync(employee);
             if (!inserted) return BadRequest();
@@ -138,7 +139,7 @@ namespace NorthwindEmployeeAPI.Controllers
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEmployeeDetails(int id, 
-            [Bind("EmployeeId", "FirstName", "LastName", "Title", "Address", "City", "PostalCode", "Country")] Employee employee)
+            [Bind("EmployeeId", "FirstName", "LastName", "Title", "TitleOfCourtesy", "Address", "City", "PostalCode", "Country", "ReportsTo", "HomePhone")] Employee employee)
         {
             if (id != employee.EmployeeId)
             {
@@ -222,7 +223,7 @@ namespace NorthwindEmployeeAPI.Controllers
             "GET"));
 
             employeeDTO.linkDto.Add(
-                new LinkDTO(Url.Link(nameof(this.GetEmployeesAsync), idObj),
+                new LinkDTO(Url.Link(nameof(this.GetEmployeesAsync), null),
                 "whole_list_employee",
                 "GET"));
 

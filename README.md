@@ -27,16 +27,10 @@ Following a CRUD approach, a set of operations were implemented:
   "hireDate": "2023-04-05T09:15:04.504Z",
   "address": "string",
   "city": "string",
-  "region": "string",
   "postalCode": "string",
   "country": "string",
   "homePhone": "string",
-  "extension": "string",
-  "photo": "string",
-  "notes": "string",
   "reportsTo": 0,
-  "photoPath": "string",
-  "reportsToNavigation": "string"
 	} 
 	```
 - `GET Employees`: Request data regarding *all* employees
@@ -109,10 +103,13 @@ Following a CRUD approach, a set of operations were implemented:
   "lastName": "string",
   "firstName": "string",
   "title": "string",
+  "titleOfCourtesy": "string",
   "address": "string",
   "city": "string",
   "postalCode": "string",
-  "country": "string"
+  "country": "string",
+  "homePhone": "string",
+  "reportsTo": 0,
 	}
 	```
 	

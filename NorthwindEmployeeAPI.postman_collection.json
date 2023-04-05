@@ -1,0 +1,425 @@
+{
+	"info": {
+		"_postman_id": "435cf23d-3c2d-41be-9357-d868484e4364",
+		"name": "NorthwindEmployeeAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7259/api/employees",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7259",
+					"path": [
+						"api",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sales Per month",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7259/api/employees/MonthlySales",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7259",
+					"path": [
+						"api",
+						"employees",
+						"MonthlySales"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get/ID - valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"CorrectID\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.employeeId).to.eql(4);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7259/api/employees/4",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7259",
+					"path": [
+						"api",
+						"employees",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get/ID - Invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7259/api/employees/89",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7259",
+					"path": [
+						"api",
+						"employees",
+						"89"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Highest Orders Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"CorrectID\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.employeeId).to.eql(4);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7259/api/employees/MostItems",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7259",
+					"path": [
+						"api",
+						"employees",
+						"MostItems"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single Highest Money made",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"CorrectID\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.employeeId).to.eql(4);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7259/api/employees/MostProfitable",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7259",
+					"path": [
+						"api",
+						"employees",
+						"MostProfitable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reports to",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7259/api/employees/ReportsTo",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7259",
+					"path": [
+						"api",
+						"employees",
+						"ReportsTo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"Empoyid\", jsonData.employeeId)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"lastName\": \"Davolio\",\r\n        \"firstName\": \"Nancy\",\r\n        \"title\": \"Sales Representative\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7259/api/employees",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7259",
+					"path": [
+						"api",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"employeeId\": 10,\r\n        \"lastName\": \"Davolio\",\r\n        \"firstName\": \"Nancy\",\r\n        \"title\": \"Sales Representative\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7259/api/employees/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7259",
+					"path": [
+						"api",
+						"employees",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7259/api/employees/:id",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7259",
+					"path": [
+						"api",
+						"employees",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{Empoyid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put territory",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\"02139\"]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7259/api/employees/1/Territory",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7259",
+					"path": [
+						"api",
+						"employees",
+						"1",
+						"Territory"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "Empoyid",
+			"value": ""
+		}
+	]
+}
