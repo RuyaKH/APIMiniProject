@@ -14,7 +14,7 @@ An API that serves the purpose of providing users the ability to request and rec
 ## Implemented Functionality
 Following a CRUD approach, a set of operations were implemented:
 - `POST Employee`: Creation of a *new* employee
-	* `http://localhost/api/Employees/{employeeId}`
+	* `http://localhost/api/Employees`
 	* Must include First and Last Name, every other field is optional
 	* Expected input:
 	 ```JSON
