@@ -15,4 +15,6 @@ public class EmployeeModel : LinkResourceBase
     public decimal TotalMoneyMade { get; set; }
     public decimal AverageSale { get; set; }
 
+    public List<LinkDTO> linkDto { get; set; } = new List<LinkDTO>();
+
 }

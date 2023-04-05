@@ -20,7 +20,7 @@ opt => opt.UseSqlServer(dbConnection));
 builder.Services.AddControllers()
     .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-builder.Services.AddAutoMapper(typeof(Program));
+//builder.Services.AddAutoMapper(typeof(Program));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -54,8 +54,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints => endpoints.MapControllers());
+//app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-//app.MapControllers();
+app.MapControllers();
 
 app.Run();
