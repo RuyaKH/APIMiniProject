@@ -18,7 +18,7 @@ namespace NorthwindEmployeeAPITests
         {
             var mockEmployeeService = new Mock<INorthwindService<Employee>>();
             var mockTerritoryService = new Mock<INorthwindService<Territory>>();
-            var mockOrderService = new Mock<IOrderService<Order>>();
+            var mockOrderService = new Mock<INorthwindService<Order>>();
             int id = 1;
             var employee = new Employee
             {
@@ -50,7 +50,7 @@ namespace NorthwindEmployeeAPITests
         {
             var mockEmployeeService = new Mock<INorthwindService<Employee>>();
             var mockTerritoryService = new Mock<INorthwindService<Territory>>();
-            var mockOrderService = new Mock<IOrderService<Order>>();
+            var mockOrderService = new Mock<INorthwindService<Order>>();
             int id = 1;
 
             List<string> territoryIds = Mock.Of<List<string>>();
@@ -79,7 +79,7 @@ namespace NorthwindEmployeeAPITests
         {
             var mockEmployeeService = new Mock<INorthwindService<Employee>>();
             var mockTerritoryService = new Mock<INorthwindService<Territory>>();
-            var mockOrderService = new Mock<IOrderService<Order>>();
+            var mockOrderService = new Mock<INorthwindService<Order>>();
             int id = 1;
 
             List<string> territoryIds = new List<string> { null };

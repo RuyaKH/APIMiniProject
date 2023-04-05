@@ -3,6 +3,7 @@ using Moq;
 using NorthwindEmployeeAPI.Controllers;
 using NorthwindEmployeeAPI.Models;
 using NorthwindEmployeeAPI.Services;
+using System.Collections.Generic;
 
 namespace NorthwindEmployeeAPITests
 {
@@ -12,8 +13,9 @@ namespace NorthwindEmployeeAPITests
         public async Task GivenAValidEmployee_PostEmployee_InsertsEmployee()
         {
             var mockService = Mock.Of<INorthwindService<Employee>>();
-            var mockOrders = Mock.Of<IOrderService<Order>>();
+            var mockOrders = Mock.Of<INorthwindService<Order>>();
             var mockTerritory = Mock.Of<INorthwindService<Territory>>();
+            //var mockRoute = Mock.Of< IReadOnlyList < ActionDescriptor > _routes >
             Mock.Get(mockService)
                 .Setup(es => es.CreateAsync(It.IsAny<Employee>()).Result)
                 .Returns(true);
@@ -25,7 +27,7 @@ namespace NorthwindEmployeeAPITests
         public async Task GivenInvalidEmlpoyee_PostEmployee_ReturnsProblem()
         {
             var mockService = Mock.Of<INorthwindService<Employee>>();
-            var mockOrders = Mock.Of<IOrderService<Order>>();
+            var mockOrders = Mock.Of<INorthwindService<Order>>();
             var mockTerritory = Mock.Of<INorthwindService<Territory>>();
             Mock.Get(mockService)
                 .Setup(es => es.CreateAsync(It.IsAny<Employee>()).Result)

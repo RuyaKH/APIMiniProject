@@ -1,4 +1,6 @@
-﻿namespace NorthwindEmployeeAPI.Models.DTO
+﻿using NorthwindEmployeeAPI.HATEOAS;
+
+namespace NorthwindEmployeeAPI.Models.DTO
 {
     public class EmployeeDTO
     {
@@ -12,6 +14,8 @@
         public int NumberOfOrders { get; set; }
         public decimal TotalMoneyMade { get; set; }
         public decimal AverageSale { get; set; }
+
+        public List<LinkDTO> linkDto { get; set; } = new List<LinkDTO>();
 
     }
 }

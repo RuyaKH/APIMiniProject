@@ -15,7 +15,7 @@ public class EmployeeDeleteTests
     {
         var mockEmployeeService = Mock.Of<INorthwindService<Employee>>();
         var mockTerritoryService = Mock.Of<INorthwindService<Territory>>();
-        var mockOrderService = Mock.Of<IOrderService<Order>>();
+        var mockOrderService = Mock.Of<INorthwindService<Order>>();
         Employee employee = new Employee();
         int id = It.IsAny<int>();
         Mock
@@ -39,7 +39,7 @@ public class EmployeeDeleteTests
     {
         var mockEmployeeService = Mock.Of<INorthwindService<Employee>>();
         var mockTerritoryService = Mock.Of<INorthwindService<Territory>>();
-        var mockOrderService = Mock.Of<IOrderService<Order>>();
+        var mockOrderService = Mock.Of<INorthwindService<Order>>();
         int id = It.IsAny<int>();
         Mock
             .Get(mockEmployeeService)
@@ -62,7 +62,7 @@ public class EmployeeDeleteTests
     {
         var mockEmployeeService = Mock.Of<INorthwindService<Employee>>();
         var mockTerritoryService = Mock.Of<INorthwindService<Territory>>();
-        var mockOrderService = Mock.Of<IOrderService<Order>>();
+        var mockOrderService = Mock.Of<INorthwindService<Order>>();
         Employee employee = Mock.Of<Employee>();
         Territory territory = Mock.Of<Territory>();
         int employeeId = It.IsAny<int>();
@@ -96,7 +96,7 @@ public class EmployeeDeleteTests
     {
         var mockEmployeeService = Mock.Of<INorthwindService<Employee>>();
         var mockTerritoryService = Mock.Of<INorthwindService<Territory>>();
-        var mockOrderService = Mock.Of<IOrderService<Order>>();
+        var mockOrderService = Mock.Of<INorthwindService<Order>>();
         Employee employee = Mock.Of<Employee>();
         Territory territory = Mock.Of<Territory>();
         int employeeId = It.IsAny<int>();
@@ -130,7 +130,7 @@ public class EmployeeDeleteTests
     {
         var mockEmployeeService = Mock.Of<INorthwindService<Employee>>();
         var mockTerritoryService = Mock.Of<INorthwindService<Territory>>();
-        var mockOrderService = Mock.Of<IOrderService<Order>>();
+        var mockOrderService = Mock.Of<INorthwindService<Order>>();
         Employee employee = Mock.Of<Employee>();
         Territory territory = Mock.Of<Territory>();
         int employeeId = It.IsAny<int>();
